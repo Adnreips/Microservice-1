@@ -1,0 +1,7 @@
+username=root
+password=root
+url=jdbc:postgresql://localhost:5432/database_m1
+driver=org.postgresql.Driver
+classpath=postgresql-42.2.18.jar
+changeLogFile=master.yaml
+dataOutputDirectory=data

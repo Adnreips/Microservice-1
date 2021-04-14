@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1618060128481-1
+      author: Andrei_Prokofev (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: exchange_value_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: conversion_multiple
+                  type: numeric(19, 2)
+              - column:
+                  name: currency_from
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: port
+                  type: INTEGER
+              - column:
+                  name: currency_to
+                  type: VARCHAR(255)
+            tableName: exchange_value
+
+  - changeSet:
+      id: 1618060128481-3
+      author: Andrei_Prokofev (generated)
+      changes:
+        - createSequence:
+            cacheSize: 1
+            cycle: false
+            dataType: bigint
+            incrementBy: 1
+            maxValue: 9223372036854775807
+            minValue: 1
+            sequenceName: hibernate_sequence
+            startValue: 1
+
