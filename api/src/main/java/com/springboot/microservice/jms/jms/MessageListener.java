@@ -16,18 +16,18 @@ import javax.jms.JMSException;
 @Slf4j
 public class MessageListener {
 
-    private final Sender sender;
+    private Sender sender;
 
     private String queueName;
 
     private static Logger logger = LoggerFactory.getLogger(MessageListener.class);
 
-    @Autowired
     public MessageListener(Sender sender) {
         this.sender = sender;
     }
 
-//    @JmsListener(destination = "${my.jms.queue.object}")
+
+    //    @JmsListener(destination = "${my.jms.queue.object}")
     public void receiveMessage(CurrencyConversionDto message) throws JMSException, JsonProcessingException {
         log.info("Received message ", message);
         sender.sendMessageObject(queueName, message);

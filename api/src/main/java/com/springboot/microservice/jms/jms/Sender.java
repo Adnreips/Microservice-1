@@ -1,13 +1,8 @@
 package com.springboot.microservice.jms.jms;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
-
-import javax.jms.Session;
 
 /**
  * Sender
@@ -19,12 +14,12 @@ import javax.jms.Session;
 @Component
 public class Sender {
 
-    JmsTemplate jmsTemplate;
+   private JmsTemplate jmsTemplate;
 
-    @Autowired
     public Sender(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
+
 
     public void sendMessageObject(final String queueName, final Object message) {
         log.info("Sending message {} to queue - {}", message, queueName);

@@ -1,6 +1,5 @@
-package com.springboot.microservice.jms.config;
+package com.springboot.microservice.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,26 +28,33 @@ import java.util.Arrays;
 
 
 @Configuration
-@Slf4j
 @EnableJms
+@PropertySource(value = {"classpath:application.properties"})
 public class ActiveMqConfig {
 
+    private static final Logger logger = LogManager.getLogger(ActiveMqConfig.class.getName());
+
+    @Value("${mb.activemq.url}")
     private String brokerUrl;
 
+    @Value("${mb.activemq.username}")
     private String userName;
 
+    @Value("${mb.activemq.password}")
     private String password;
 
-    private final ConnectionFactory connectionFactory;
+    @Value("${message.broker.tjm}")
+    private String tjmQueue;
 
-    @Autowired
+    private ConnectionFactory connectionFactory;
+
     public ActiveMqConfig(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        log.info("init ConnectionFactory");
+        logger.info("init ConnectionFactory");
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(brokerUrl);
         connectionFactory.setUserName(userName);
@@ -60,7 +66,7 @@ public class ActiveMqConfig {
 
     @Bean
     public MessageConverter jacksonJmsMessageConverter() {
-        log.info("init MessageConverter");
+        logger.info("init MessageConverter");
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
 //        converter.setTargetType(MessageType.OBJECT);
