@@ -1,6 +1,7 @@
 package com.springboot.microservice.forex.jms;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Component;
  * @author "Andrei Prokofiev"
  */
 
-@Slf4j
 @Component
+@Slf4j
 public class Sender {
 
    private JmsTemplate jmsTemplate;

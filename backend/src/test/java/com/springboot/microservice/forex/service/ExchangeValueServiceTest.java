@@ -28,7 +28,7 @@ class ExchangeValueServiceTest {
     void SetConversionMultipleTest() {
 
         when(exchangeValueRepository.findByFromAndTo("USD", "INR"))
-                .thenReturn(new ExchangeValue(UUID.randomUUID(), new BigDecimal("65.00"), "USD", 1, "INR"));
+                .thenReturn(new ExchangeValue(1L, new BigDecimal("65.00"), "USD", 1, "INR"));
 
         assertEquals(new BigDecimal("65.00"), exchangeValueRepository.findByFromAndTo("USD", "INR").getConversionMultiple());
 

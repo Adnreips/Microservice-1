@@ -16,7 +16,7 @@ public class ExchangeValue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
 
     @Column(name="currency_from")
     private String from;
@@ -34,7 +34,7 @@ public class ExchangeValue {
 
     private int port;
 
-    public ExchangeValue(UUID id, BigDecimal conversionMultiple, String from, int port, String to) {
+    public ExchangeValue(Long id, BigDecimal conversionMultiple, String from, int port, String to) {
         this.id = id;
         this.conversionMultiple = conversionMultiple;
         this.from = from;
