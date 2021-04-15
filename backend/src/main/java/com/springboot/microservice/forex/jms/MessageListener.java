@@ -1,12 +1,10 @@
-package com.springboot.microservice.jms.jms;
+package com.springboot.microservice.forex.jms;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.springboot.microservice.CurrencyConversionDto;
+import com.springboot.microservice.forex.service.ExchangeValueService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
@@ -20,16 +18,20 @@ public class MessageListener {
 
     private String queueName;
 
-    private static Logger logger = LoggerFactory.getLogger(MessageListener.class);
+    ExchangeValueService exchangeValueService;
 
-    public MessageListener(Sender sender) {
+
+    public MessageListener(Sender sender, ExchangeValueService exchangeValueService) {
         this.sender = sender;
+        this.exchangeValueService = exchangeValueService;
     }
 
-
-    //    @JmsListener(destination = "${my.jms.queue.object}")
+        @JmsListener(destination = "${my.jms.queue.object}")
     public void receiveMessage(CurrencyConversionDto message) throws JMSException, JsonProcessingException {
         log.info("Received message ", message);
+
+        exchangeValueService.setConversionMultiple(message);
+
         sender.sendMessageObject(queueName, message);
 
     }

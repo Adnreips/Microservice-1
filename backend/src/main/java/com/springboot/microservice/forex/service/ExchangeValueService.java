@@ -1,12 +1,11 @@
-package com.springboot.microservice.service;
+package com.springboot.microservice.forex.service;
 
 
 import com.springboot.microservice.CurrencyConversionDto;
-import com.springboot.microservice.model.ExchangeValue;
-import com.springboot.microservice.repository.ExchangeValueRepository;
+import com.springboot.microservice.forex.model.ExchangeValue;
+import com.springboot.microservice.forex.repository.ExchangeValueRepository;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +15,6 @@ public class ExchangeValueService {
 
     ExchangeValueRepository exchangeValueRepository;
 
-    @Autowired
     public ExchangeValueService(ExchangeValueRepository exchangeValueRepository) {
         this.exchangeValueRepository = exchangeValueRepository;
     }

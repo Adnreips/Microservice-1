@@ -1,4 +1,4 @@
-package com.springboot.microservice.config;
+package com.springboot.microservice.forex.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.logging.log4j.LogManager;
@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.connection.JmsTransactionManager;
@@ -29,7 +28,6 @@ import java.util.Arrays;
 
 @Configuration
 @EnableJms
-@PropertySource(value = {"classpath:application.properties"})
 public class ActiveMqConfig {
 
     private static final Logger logger = LogManager.getLogger(ActiveMqConfig.class.getName());
@@ -43,14 +41,10 @@ public class ActiveMqConfig {
     @Value("${mb.activemq.password}")
     private String password;
 
-    @Value("${message.broker.tjm}")
-    private String tjmQueue;
 
+
+    @Autowired
     private ConnectionFactory connectionFactory;
-
-    public ActiveMqConfig(ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
-    }
 
     @Bean
     public ConnectionFactory connectionFactory() {

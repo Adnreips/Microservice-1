@@ -1,10 +1,9 @@
-package com.springboot.microservice.model;
+package com.springboot.microservice.forex.model;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -34,4 +33,12 @@ public class ExchangeValue {
     private BigDecimal totalCalculatedAmount;
 
     private int port;
+
+    public ExchangeValue(UUID id, BigDecimal conversionMultiple, String from, int port, String to) {
+        this.id = id;
+        this.conversionMultiple = conversionMultiple;
+        this.from = from;
+        this.port = port;
+        this.to = to;
+    }
 }

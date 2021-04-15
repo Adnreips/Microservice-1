@@ -1,14 +1,13 @@
-package com.springboot.microservice.config;
+package com.springboot.microservice.forex.config;
 
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 @Data
+@Configuration
 @ConfigurationProperties(ignoreUnknownFields = false, prefix = "broker")
-@Component
 public class ActiveMqConfigProperties {
 
     private String brokerUrl;

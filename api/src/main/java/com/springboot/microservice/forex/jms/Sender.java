@@ -1,4 +1,4 @@
-package com.springboot.microservice.jms.jms;
+package com.springboot.microservice.forex.jms;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;

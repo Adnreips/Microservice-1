@@ -1,9 +1,12 @@
-package com.springboot.microservice;
+package com.springboot.microservice.forex;
 
 
-import com.springboot.microservice.config.ActiveMqConfigProperties;
+import com.springboot.microservice.forex.config.ActiveMqConfigProperties;
+import com.springboot.microservice.forex.model.ExchangeValue;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ApplicationContext;
@@ -15,18 +18,23 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 @SpringBootApplication
 @EnableConfigurationProperties(ActiveMqConfigProperties.class)
 @EnableEurekaClient
 @EnableAsync
 @EnableSwagger2
-public class ForexBackendApplication  {
+@ConfigurationPropertiesScan("com.springboot.microservice")
+public class ForexBackendApplication {
 
     public static void main(String[] args) {
         ApplicationContext context= SpringApplication.run(
                 ForexBackendApplication.class, args);
 
     }
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -35,6 +43,7 @@ public class ForexBackendApplication  {
                 .paths(PathSelectors.any())
                 .build();
     }
+
 
 
 //
