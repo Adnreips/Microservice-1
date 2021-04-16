@@ -1,34 +1,45 @@
 package com.springboot.microservice.forex.service;
 
-
 import com.springboot.microservice.CurrencyConversionDto;
 import com.springboot.microservice.forex.model.ExchangeValue;
 import com.springboot.microservice.forex.repository.ExchangeValueRepository;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.CompletableFuture;
+
 @Service
-@Data
 @Slf4j
 public class ExchangeValueService {
 
-    ExchangeValueRepository exchangeValueRepository;
+    private final ExchangeValueRepository exchangeValueRepository;
 
+    @Autowired
     public ExchangeValueService(ExchangeValueRepository exchangeValueRepository) {
         this.exchangeValueRepository = exchangeValueRepository;
     }
 
-    public CurrencyConversionDto setConversionMultiple (CurrencyConversionDto currencyConversionDto){
+    public ExchangeValue getConversionMultiple(String from, String to) {
 
         ExchangeValue exchangeValue = exchangeValueRepository
-                .findByFromAndTo(currencyConversionDto.getFrom(), currencyConversionDto.getTo());
+                .findByFromAndTo(from, to);
 
-        currencyConversionDto.setConversionMultiple(exchangeValue.getConversionMultiple());
-
-        return currencyConversionDto;
+        return exchangeValue;
     }
 
+    public CompletableFuture<ExchangeValue> getConversionMultipleAsync(String from, String to) {
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            log.error("InterruptedException", e);
+        }
+
+        ExchangeValue exchangeValue = exchangeValueRepository
+                .findByFromAndTo(from, to);
+
+        return CompletableFuture.completedFuture(exchangeValue);
+    }
 
 }

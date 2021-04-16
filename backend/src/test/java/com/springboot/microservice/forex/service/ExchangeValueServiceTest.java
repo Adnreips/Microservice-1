@@ -2,35 +2,39 @@ package com.springboot.microservice.forex.service;
 
 import com.springboot.microservice.forex.model.ExchangeValue;
 import com.springboot.microservice.forex.repository.ExchangeValueRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mockito;
+
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-
-@SpringBootTest
 class ExchangeValueServiceTest {
 
-    @Mock
     ExchangeValueRepository exchangeValueRepository;
-
-    @Autowired
     ExchangeValueService exchangeValueService;
+
+    @BeforeEach
+    public void setUp() {
+        exchangeValueRepository = Mockito.mock(ExchangeValueRepository.class);
+        exchangeValueService = new ExchangeValueService(exchangeValueRepository);
+
+    }
 
     @DisplayName("Test method SetConversionMultiple")
     @Test
     void SetConversionMultipleTest() {
 
-        when(exchangeValueRepository.findByFromAndTo("USD", "INR"))
-                .thenReturn(new ExchangeValue(1L, new BigDecimal("65.00"), "USD", 1, "INR"));
+        String from = "USD";
+        String to = "INR";
+        ExchangeValue expectedExchangeValue = new ExchangeValue(1L, new BigDecimal("65.00"), from, 1, to);
 
-        assertEquals(new BigDecimal("65.00"), exchangeValueRepository.findByFromAndTo("USD", "INR").getConversionMultiple());
+        when(exchangeValueRepository.findByFromAndTo("USD", "INR")).thenReturn(expectedExchangeValue);
+        ExchangeValue actualConversionMultiple = exchangeValueService.getConversionMultiple(from, to);
 
+        assertEquals(expectedExchangeValue, actualConversionMultiple);
     }
 }

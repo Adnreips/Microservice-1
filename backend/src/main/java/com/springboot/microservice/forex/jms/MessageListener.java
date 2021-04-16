@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.springboot.microservice.CurrencyConversionDto;
 import com.springboot.microservice.forex.service.ExchangeValueService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.jms.annotation.JmsListener;
@@ -40,7 +39,7 @@ public class MessageListener {
 
         log.info("Port {}", environment.getProperty("local.server.port"));
 
-        exchangeValueService.setConversionMultiple(message);
+        exchangeValueService.getConversionMultiple(message.getFrom(), message.getTo());
 
         sender.sendMessageObject(queueNameObject, message);
 

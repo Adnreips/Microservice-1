@@ -6,8 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Data
-@Configuration
-@ConfigurationProperties(ignoreUnknownFields = false, prefix = "broker")
+@ConfigurationProperties(prefix = "broker")
 public class ActiveMqConfigProperties {
 
     private String brokerUrl;
@@ -16,7 +15,6 @@ public class ActiveMqConfigProperties {
 
     private String password;
 
-    private String queueName;
 
 
 }

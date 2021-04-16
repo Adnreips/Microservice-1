@@ -58,6 +58,11 @@
             <version>3.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.springboot.microservice</groupId>
+            <artifactId>currencyconversiondto</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 

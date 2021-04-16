@@ -17,7 +17,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-
         <module>api</module>
         <module>backend</module>
     </modules>
@@ -57,6 +56,12 @@
             <version>1.18.16</version>
             <scope>provided</scope>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.springboot.microservice</groupId>
+            <artifactId>currencyconversiondto</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
