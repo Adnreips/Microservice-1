@@ -43,8 +43,14 @@ public class ActiveMqConfig {
     @Value("${mb.activemq.password}")
     private String password;
 
+    private  ConnectionFactory connectionFactory;
+
     @Autowired
-    private ConnectionFactory connectionFactory;
+    public void setConnectionFactory(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
+
+
 
 
 

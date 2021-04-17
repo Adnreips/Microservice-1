@@ -3,6 +3,7 @@ package com.springboot.microservice.forex.jms;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.springboot.microservice.CurrencyConversionDto;
+import com.springboot.microservice.forex.model.ExchangeValue;
 import com.springboot.microservice.forex.service.ExchangeValueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +40,11 @@ public class MessageListener {
 
         log.info("Port {}", environment.getProperty("local.server.port"));
 
-        exchangeValueService.getConversionMultiple(message.getFrom(), message.getTo());
+        ExchangeValue exchangeValue = exchangeValueService.getConversionMultiple(message.getFrom(), message.getTo());
+
+        message.setConversionMultiple(exchangeValue.getConversionMultiple());
+
+        log.info("MessageListener {}", message);
 
         sender.sendMessageObject(queueNameObject, message);
 

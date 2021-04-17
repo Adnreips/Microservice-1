@@ -21,12 +21,11 @@ class ExchangeValueServiceTest {
     public void setUp() {
         exchangeValueRepository = Mockito.mock(ExchangeValueRepository.class);
         exchangeValueService = new ExchangeValueService(exchangeValueRepository);
-
     }
 
-    @DisplayName("Test method SetConversionMultiple")
+    @DisplayName("Test method getConversionMultiple")
     @Test
-    void SetConversionMultipleTest() {
+    void getConversionMultipleTest() {
 
         String from = "USD";
         String to = "INR";
@@ -36,5 +35,21 @@ class ExchangeValueServiceTest {
         ExchangeValue actualConversionMultiple = exchangeValueService.getConversionMultiple(from, to);
 
         assertEquals(expectedExchangeValue, actualConversionMultiple);
+    }
+
+
+    @DisplayName("Test method getConversionMultipleAsync")
+    @Test
+    void getConversionMultipleAsyncTest() {
+        String from = "USD";
+        String to = "INR";
+        ExchangeValue expectedExchangeValue = new ExchangeValue(1L, new BigDecimal("65.00"), from, 1, to);
+
+        when(exchangeValueRepository.findByFromAndTo("USD", "INR")).thenReturn(expectedExchangeValue);
+        ExchangeValue actualConversionMultiple = exchangeValueService.getConversionMultiple(from, to);
+
+        assertEquals(expectedExchangeValue, actualConversionMultiple);
+
+
     }
 }

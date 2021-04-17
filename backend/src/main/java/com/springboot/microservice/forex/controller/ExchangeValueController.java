@@ -7,6 +7,7 @@ import com.springboot.microservice.forex.model.ExchangeValue;
 import com.springboot.microservice.forex.rest.service.RestTemplateService;
 import com.springboot.microservice.forex.service.ExchangeValueService;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.ExecutionException;
 @Api
 @RestController
 @RequestMapping(value = "/exchangevalue")
+@Slf4j
 public class ExchangeValueController {
 
     ExchangeValueService exchangeValueService;
@@ -31,9 +33,11 @@ public class ExchangeValueController {
     @ResponseBody
     public CurrencyConversionDto retrieveAndSendExchangeValue(@RequestBody CurrencyConversionDto currencyConversionDto) {
 
-        ExchangeValue exchangeValue = exchangeValueService.getConversionMultiple(currencyConversionDto.getFrom(), currencyConversionDto.getTo());
+        ExchangeValue exchangeValue = exchangeValueService
+                .getConversionMultiple(currencyConversionDto.getFrom(), currencyConversionDto.getTo());
         currencyConversionDto.setConversionMultiple(exchangeValue.getConversionMultiple());
 
+        log.info("currencyConversionDto {}", currencyConversionDto);
         return currencyConversionDto;
     }
 
@@ -52,21 +56,5 @@ public class ExchangeValueController {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-//        RestTemplate restTemplate = new RestTemplate();
-//        HttpEntity<CurrencyConversionDto> requestBody = null;
-//        try {
-//            requestBody = new HttpEntity<>(currencyConversionDtoCompletableFuture.get());
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//        ResponseEntity<CurrencyConversionDto> result
-//                = restTemplate.postForEntity("http://localhost:8100/currencyconversion/retrieveasyncresponse", requestBody, CurrencyConversionDto.class);
-
-
     }
-
-
 }
