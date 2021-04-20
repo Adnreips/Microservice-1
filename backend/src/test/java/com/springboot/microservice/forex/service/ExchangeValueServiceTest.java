@@ -37,7 +37,6 @@ class ExchangeValueServiceTest {
         assertEquals(expectedExchangeValue, actualConversionMultiple);
     }
 
-
     @DisplayName("Test method getConversionMultipleAsync")
     @Test
     void getConversionMultipleAsyncTest() {

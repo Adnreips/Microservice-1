@@ -1,9 +1,8 @@
 package com.springboot.microservice.forex.config;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,6 +15,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
+import org.springframework.stereotype.Component;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Session;
@@ -31,6 +31,7 @@ import java.util.Arrays;
 @Configuration
 @EnableJms
 @Slf4j
+@Data
 public class ActiveMqConfig {
 
 
@@ -43,16 +44,13 @@ public class ActiveMqConfig {
     @Value("${mb.activemq.password}")
     private String password;
 
+
     private  ConnectionFactory connectionFactory;
 
     @Autowired
     public void setConnectionFactory(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
-
-
-
-
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -100,4 +98,7 @@ public class ActiveMqConfig {
         template.setConnectionFactory(connectionFactory());
         return template;
     }
+
+
+
 }

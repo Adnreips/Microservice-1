@@ -38,8 +38,8 @@ public class ExchangeValueController {
         ExchangeValue exchangeValue = exchangeValueService
                 .getConversionMultiple(currencyConversionDto.getFrom(), currencyConversionDto.getTo());
         currencyConversionDto.setConversionMultiple(exchangeValue.getConversionMultiple());
-
         log.info("currencyConversionDto {}", currencyConversionDto);
+
         return currencyConversionDto;
     }
 

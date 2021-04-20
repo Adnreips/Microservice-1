@@ -25,11 +25,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableEurekaClient
 @EnableAsync
 @EnableSwagger2
-@ConfigurationPropertiesScan("com.springboot.microservice")
-@EnableConfigurationProperties(ActiveMqConfigProperties.class)
+@ConfigurationPropertiesScan("com.springboot.microservice.forex")
 public class ForexApplication {
-
-
 
     public static void main(String[] args) {
         ApplicationContext context= SpringApplication.run(
