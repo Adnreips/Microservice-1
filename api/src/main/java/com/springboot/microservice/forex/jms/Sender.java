@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
  * @author "Andrei Prokofiev"
  */
 
-@Component
 @Slf4j
+@Component
 public class Sender {
 
    private JmsTemplate jmsTemplate;

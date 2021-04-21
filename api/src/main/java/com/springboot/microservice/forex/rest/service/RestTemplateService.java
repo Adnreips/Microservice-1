@@ -5,13 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 
 @Async
-@Service
 @Slf4j
+@Component
 public class RestTemplateService {
 
     public void beginAsyncExchangeValue(CurrencyConversionDto currencyConversionDto) {
