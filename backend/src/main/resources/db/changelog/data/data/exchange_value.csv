@@ -1,4 +1,5 @@
-"id","conversion_multiple","currency_from","port","currency_to"
-"1","65.00","USD","1","INR"
-"2","75.00","EUR","2","INR"
-"3","25.00","AUD","3","INR"
+"uuid","conversion_multiple","currency_from","id","port","currency_to"
+97d253c1-111a-4bdd-8621-b6332dc958d8,"75.00","USD","1","1","RUB"
+97d253c1-111a-4bdd-8621-b6332dc958d7,"85.00","EUR","1","1","RUB"
+97d253c1-111a-4bdd-8621-b6332dc958d6,"85.00","EUR","1","1","INR"
+

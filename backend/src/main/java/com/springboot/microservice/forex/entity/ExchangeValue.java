@@ -1,7 +1,6 @@
-package com.springboot.microservice.forex.model;
+package com.springboot.microservice.forex.entity;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,8 @@ import java.util.UUID;
 public class ExchangeValue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID uuid;
+
     private Long id;
 
 

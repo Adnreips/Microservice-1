@@ -1,6 +1,6 @@
 package com.springboot.microservice.forex.service;
 
-import com.springboot.microservice.forex.model.ExchangeValue;
+import com.springboot.microservice.forex.entity.ExchangeValue;
 import com.springboot.microservice.forex.repository.ExchangeValueRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,10 +30,8 @@ class ExchangeValueServiceTest {
         String from = "USD";
         String to = "INR";
         ExchangeValue expectedExchangeValue = new ExchangeValue(1L, new BigDecimal("65.00"), from, 1, to);
-
         when(exchangeValueRepository.findByFromAndTo("USD", "INR")).thenReturn(expectedExchangeValue);
         ExchangeValue actualConversionMultiple = exchangeValueService.getConversionMultiple(from, to);
-
         assertEquals(expectedExchangeValue, actualConversionMultiple);
     }
 
@@ -43,10 +41,8 @@ class ExchangeValueServiceTest {
         String from = "USD";
         String to = "INR";
         ExchangeValue expectedExchangeValue = new ExchangeValue(1L, new BigDecimal("65.00"), from, 1, to);
-
         when(exchangeValueRepository.findByFromAndTo("USD", "INR")).thenReturn(expectedExchangeValue);
         ExchangeValue actualConversionMultiple = exchangeValueService.getConversionMultiple(from, to);
-
         assertEquals(expectedExchangeValue, actualConversionMultiple);
 
 

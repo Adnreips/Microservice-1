@@ -3,7 +3,7 @@ package
 
 
 import com.springboot.microservice.CurrencyConversionDto;
-import com.springboot.microservice.forex.model.ExchangeValue;
+import com.springboot.microservice.forex.entity.ExchangeValue;
 import com.springboot.microservice.forex.rest.service.RestTemplateService;
 import com.springboot.microservice.forex.service.ExchangeValueService;
 import io.swagger.annotations.Api;

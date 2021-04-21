@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:application.properties")
 @Data
 public class ActiveMqConfigProperties {
+
     private String brokerUrl;
 
     private String userName;
