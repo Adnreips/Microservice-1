@@ -18,7 +18,6 @@ public class RestTemplateService {
     public void beginAsyncExchangeValue(CurrencyConversionDto currencyConversionDto) {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<CurrencyConversionDto> requestBody = new HttpEntity<>(currencyConversionDto);
-
         ResponseEntity<CurrencyConversionDto> result
                 = restTemplate.postForEntity("http://localhost:8100/currencyconversion/retrieveasyncresponse", requestBody, CurrencyConversionDto.class);
     }

@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 public class ActiveMqConfigProperties {
 
     private String brokerUrl;
-
     private String userName;
-
     private String password;
 
 

@@ -10,7 +10,6 @@ import java.util.UUID;
 @Repository
 public interface ExchangeValueRepository extends JpaRepository<ExchangeValue, UUID> {
 
-
     ExchangeValue findByFromAndTo(String from, String to);
 
 }

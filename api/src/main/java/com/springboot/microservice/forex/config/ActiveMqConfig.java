@@ -96,6 +96,7 @@ public class ActiveMqConfig {
         template.setMessageConverter(jacksonJmsMessageConverter());
         template.setSessionTransacted(true);
         template.setConnectionFactory(connectionFactory());
+        template.afterPropertiesSet();
         return template;
     }
 

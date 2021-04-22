@@ -3,9 +3,8 @@ package
 
 
 import com.springboot.microservice.CurrencyConversionDto;
-import com.springboot.microservice.forex.entity.ExchangeValue;
 import com.springboot.microservice.forex.rest.service.RestTemplateService;
-import com.springboot.microservice.forex.service.ExchangeValueService;
+import com.springboot.microservice.forex.service.ExchangeValueServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +21,11 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 public class ExchangeValueController {
 
-    ExchangeValueService exchangeValueService;
+    ExchangeValueServiceImpl exchangeValueServiceImpl;
     RestTemplateService restTemplateService;
 
-    public ExchangeValueController(ExchangeValueService exchangeValueService, RestTemplateService restTemplateService) {
-        this.exchangeValueService = exchangeValueService;
+    public ExchangeValueController(ExchangeValueServiceImpl exchangeValueServiceImpl, RestTemplateService restTemplateService) {
+        this.exchangeValueServiceImpl = exchangeValueServiceImpl;
         this.restTemplateService = restTemplateService;
     }
 
@@ -34,12 +33,7 @@ public class ExchangeValueController {
     @PostMapping(value = "/retrieve", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public CurrencyConversionDto retrieveAndSendExchangeValue(@RequestBody CurrencyConversionDto currencyConversionDto) {
-
-        ExchangeValue exchangeValue = exchangeValueService
-                .getConversionMultiple(currencyConversionDto.getFrom(), currencyConversionDto.getTo());
-        currencyConversionDto.setConversionMultiple(exchangeValue.getConversionMultiple());
-        log.info("currencyConversionDto {}", currencyConversionDto);
-
+        exchangeValueServiceImpl.setConversionMultiple(currencyConversionDto);
         return currencyConversionDto;
     }
 
@@ -48,12 +42,11 @@ public class ExchangeValueController {
     @ResponseBody
     public void retrieveAndSendAsyncExchangeValue(@RequestBody CurrencyConversionDto currencyConversionDto) {
 
-        CompletableFuture<ExchangeValue> currencyConversionDtoCompletableFuture = exchangeValueService
-                .getConversionMultipleAsync(currencyConversionDto.getFrom(), currencyConversionDto.getTo());
-
+        CompletableFuture<CurrencyConversionDto> currencyConversionDtoCompletableFuture = exchangeValueServiceImpl
+                .setConversionMultipleAsync(currencyConversionDto);
         try {
-            currencyConversionDto.setConversionMultiple(currencyConversionDtoCompletableFuture.get().getConversionMultiple());
-            restTemplateService.beginAsyncExchangeValue(currencyConversionDto);
+            CurrencyConversionDto currencyConversionDto1 = currencyConversionDtoCompletableFuture.get();
+            restTemplateService.beginAsyncExchangeValue(currencyConversionDto1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
