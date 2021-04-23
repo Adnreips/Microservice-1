@@ -30,7 +30,6 @@ public class ExchangeValueServiceImpl implements ExchangeValueService {
         return currencyConversionDto;
     }
 
-    @Async
     public CompletableFuture<CurrencyConversionDto> setConversionMultipleAsync(CurrencyConversionDto currencyConversionDto) {
         try {
             Thread.sleep(5000);

@@ -25,7 +25,7 @@ class ExchangeValueServiceTest {
     public void setUp() {
         exchangeValueRepository = Mockito.mock(ExchangeValueRepository.class);
         exchangeValueServiceImpl = new ExchangeValueServiceImpl(exchangeValueRepository);
-        currencyConversionDto = new CurrencyConversionDto(1L,"EUR","RUB",new BigDecimal("1"),
+        currencyConversionDto = new CurrencyConversionDto(1L, "EUR", "RUB", new BigDecimal("1"),
                 new BigDecimal("1"), new BigDecimal("0"), 1);
         exchangeValue = new ExchangeValue(1L, new BigDecimal("85.00"), "EUR", 1, "RUB");
         when(exchangeValueRepository.findByFromAndTo("EUR", "RUB")).thenReturn(exchangeValue);
