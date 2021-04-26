@@ -5,6 +5,7 @@ import com.springboot.microservice.CurrencyConversionDto;
 import com.springboot.microservice.forex.service.ExchangeValueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
 import javax.jms.JMSException;
 
@@ -21,7 +22,7 @@ public class MyMessageListener extends MessageListener {
     }
 
     @Override
-    public void receiveMessage(CurrencyConversionDto message) throws JMSException, JsonProcessingException {
-        super.receiveMessage(message);
+    public void receiveMessage(CurrencyConversionDto message, MessageHeaders messageHeaders) throws JMSException, JsonProcessingException {
+        super.receiveMessage(message, messageHeaders);
     }
 }

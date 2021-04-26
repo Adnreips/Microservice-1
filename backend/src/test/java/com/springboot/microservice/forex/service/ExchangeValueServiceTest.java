@@ -34,7 +34,7 @@ class ExchangeValueServiceTest {
 
     @DisplayName("Test method getConversionMultiple")
     @Test
-    void getConversionMultipleTest() {
+    void setConversionMultipleTest() {
         BigDecimal expectedConversionMultiple = exchangeValue.getConversionMultiple();
         BigDecimal actualConversionMultiple = exchangeValueServiceImpl.setConversionMultiple(currencyConversionDto).getConversionMultiple();
         assertEquals(expectedConversionMultiple, actualConversionMultiple);
@@ -42,7 +42,7 @@ class ExchangeValueServiceTest {
 
     @DisplayName("Test method getConversionMultipleAsync")
     @Test
-    void getConversionMultipleAsyncTest() {
+    void setConversionMultipleAsyncTest() {
         BigDecimal expectedConversionMultiple = exchangeValue.getConversionMultiple();
         BigDecimal actualConversionMultiple = null;
         try {
