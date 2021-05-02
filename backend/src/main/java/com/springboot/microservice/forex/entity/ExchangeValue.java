@@ -15,16 +15,23 @@ public class ExchangeValue {
 
     @Id
     private UUID uuid;
+
     private Long id;
+
     @Column(name="currency_from")
     private String from;
+
     @Column(name="currency_to")
     private String to;
+
     private BigDecimal conversionMultiple;
+
     @Transient
     private BigDecimal quantity;
+
     @Transient
     private BigDecimal totalCalculatedAmount;
+
     private int port;
 
     public ExchangeValue(Long id, BigDecimal conversionMultiple, String from, int port, String to) {

@@ -1,7 +1,6 @@
 package com.springboot.microservice.forex.service;
 
 import com.springboot.microservice.CurrencyConversionDto;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service

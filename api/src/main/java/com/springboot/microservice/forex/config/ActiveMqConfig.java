@@ -34,7 +34,6 @@ import java.util.Arrays;
 @Data
 public class ActiveMqConfig {
 
-
     @Value("${mb.activemq.url}")
     private String brokerUrl;
 
@@ -43,14 +42,6 @@ public class ActiveMqConfig {
 
     @Value("${mb.activemq.password}")
     private String password;
-
-
-    private  ConnectionFactory connectionFactory;
-
-    @Autowired
-    public void setConnectionFactory(ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
-    }
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -69,13 +60,12 @@ public class ActiveMqConfig {
         log.info("init MessageConverter");
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
-//        converter.setTargetType(MessageType.OBJECT);
         converter.setTypeIdPropertyName("_type");
         return converter;
     }
 
     @Bean
-    public DefaultJmsListenerContainerFactory jmsFactory() {
+    public DefaultJmsListenerContainerFactory jmsFactory(ConnectionFactory connectionFactory) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(jacksonJmsMessageConverter());
