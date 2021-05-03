@@ -7,13 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.CompletableFuture;
-
 @Service
 @Slf4j
 public class ExchangeValueServiceImpl implements ExchangeValueService {
 
     private final ExchangeValueRepository exchangeValueRepository;
+
 
     @Autowired
     public ExchangeValueServiceImpl(ExchangeValueRepository exchangeValueRepository) {
@@ -22,24 +21,27 @@ public class ExchangeValueServiceImpl implements ExchangeValueService {
 
     @Override
     public CurrencyConversionDto setConversionMultiple(CurrencyConversionDto currencyConversionDto) {
+        log.info("Начало процесса: {}", currencyConversionDto);
+
+        doHardWork();
+
         ExchangeValue exchangeValue = exchangeValueRepository
                 .findByFromAndTo(currencyConversionDto.getFrom(), currencyConversionDto.getTo());
         log.info("exchangeValue {}", exchangeValue);
         currencyConversionDto.setConversionMultiple(exchangeValue.getConversionMultiple());
+
+        log.info("Завершение процесса: {}", currencyConversionDto);
         return currencyConversionDto;
     }
 
-    public CompletableFuture<CurrencyConversionDto> setConversionMultipleAsync(CurrencyConversionDto currencyConversionDto) {
+    private void doHardWork() {
         try {
+            log.info("Do hard work...");
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             log.error("InterruptedException", e);
+            Thread.currentThread().interrupt();
         }
-        ExchangeValue exchangeValue = exchangeValueRepository
-                .findByFromAndTo(currencyConversionDto.getFrom(), currencyConversionDto.getTo());
-        log.info("exchangeValue {}", exchangeValue);
-        currencyConversionDto.setConversionMultiple(exchangeValue.getConversionMultiple());
-        return CompletableFuture.completedFuture(currencyConversionDto);
     }
 
 }

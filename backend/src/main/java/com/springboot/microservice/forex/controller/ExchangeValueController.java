@@ -3,20 +3,18 @@ package
 
 
 import com.springboot.microservice.CurrencyConversionDto;
-import com.springboot.microservice.forex.service.RestTemplateService;
 import com.springboot.microservice.forex.service.ExchangeValueServiceImpl;
+import com.springboot.microservice.forex.service.RestTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 
 @Api("Get exchange value")
@@ -34,25 +32,22 @@ public class ExchangeValueController {
     }
 
     @ApiOperation("Get exchange value resttemplate sync")
-    @PostMapping(value = "/retrieve", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
+    @PostMapping(value = "/retrieve")
     public CurrencyConversionDto retrieveAndSendExchangeValue(@RequestBody CurrencyConversionDto currencyConversionDto) {
+        log.info("Получен запрос на синхронный расчет курса обмена: {}", currencyConversionDto);
         exchangeValueServiceImpl.setConversionMultiple(currencyConversionDto);
+        log.info("Подготовлен ответ с currencyConversionDto: {}", currencyConversionDto);
         return currencyConversionDto;
     }
 
     @ApiOperation("Get exchange value resttemplate async")
-    @PostMapping(value = "/retrieveasyncrequest", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public void retrieveAndSendAsyncExchangeValue(@RequestBody CurrencyConversionDto currencyConversionDto) {
-
-        CompletableFuture<CurrencyConversionDto> currencyConversionDtoCompletableFuture = exchangeValueServiceImpl
-                .setConversionMultipleAsync(currencyConversionDto);
-        try {
-            CurrencyConversionDto currencyConversionDto1 = currencyConversionDtoCompletableFuture.get();
-            restTemplateService.beginAsyncExchangeValue(currencyConversionDto1);
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+    @PostMapping(value = "/retrieveasyncrequest")
+    public ResponseEntity<String> retrieveAndSendExchangeValueAsync(@RequestBody CurrencyConversionDto currencyConversionDto) {
+        log.info("Получен запрос на асинхронный расчет курса обмена: {}", currencyConversionDto);
+        CompletableFuture.runAsync(() -> {
+            exchangeValueServiceImpl.setConversionMultiple(currencyConversionDto);
+            restTemplateService.sendExchangeValue(currencyConversionDto);
+        });
+        return ResponseEntity.ok("Асинхронный запрос обрабатывается...");
     }
 }

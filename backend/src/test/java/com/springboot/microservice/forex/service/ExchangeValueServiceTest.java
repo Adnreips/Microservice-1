@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
-import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -29,7 +28,6 @@ class ExchangeValueServiceTest {
                 new BigDecimal("1"), new BigDecimal("0"), 1);
         exchangeValue = new ExchangeValue(1L, new BigDecimal("85.00"), "EUR", 1, "RUB");
         when(exchangeValueRepository.findByFromAndTo("EUR", "RUB")).thenReturn(exchangeValue);
-
     }
 
     @DisplayName("Test method getConversionMultiple")
@@ -39,20 +37,4 @@ class ExchangeValueServiceTest {
         BigDecimal actualConversionMultiple = exchangeValueServiceImpl.setConversionMultiple(currencyConversionDto).getConversionMultiple();
         assertEquals(expectedConversionMultiple, actualConversionMultiple);
     }
-
-    @DisplayName("Test method getConversionMultipleAsync")
-    @Test
-    void setConversionMultipleAsyncTest() {
-        BigDecimal expectedConversionMultiple = exchangeValue.getConversionMultiple();
-        BigDecimal actualConversionMultiple = null;
-        try {
-            actualConversionMultiple = exchangeValueServiceImpl.setConversionMultipleAsync(currencyConversionDto).get().getConversionMultiple();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        assertEquals(expectedConversionMultiple, actualConversionMultiple);
-    }
-
 }
